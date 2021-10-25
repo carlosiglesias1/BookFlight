@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Book Flight</string>
+    <string name="From">From</string>
+    <string name="To">To</string>
+    <string name="Depart">Depart</string>
+    <string name="Return">Return</string>
+    <string name="Sumar">+</string>
+    <string name="Restar">-</string>
+    <string name="Buscar">Search Flights</string>
+</resources>
