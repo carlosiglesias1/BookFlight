@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,7 +22,8 @@
                 android:id="@+id/travelType"
                 android:layout_columnSpan="2"
                 android:layout_gravity="fill"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:checkedButton="@id/roundtrip">
 
                 <RadioButton
                     android:id="@+id/roundtrip"
@@ -40,55 +42,83 @@
                 android:id="@+id/history"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="end"
                 android:text="History" />
 
-            <EditText
-                android:id="@+id/from"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_columnSpan="3"
-                android:layout_gravity="fill"
-                android:hint="@string/From"
-                android:imeOptions="actionNext"
-                android:inputType="text" />
-
-            <EditText
-                android:id="@+id/to"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_columnSpan="3"
-                android:layout_gravity="fill"
-                android:hint="@string/To"
-                android:imeOptions="actionNext"
-                android:inputType="text" />
-
-            <EditText
-                android:id="@+id/depart"
-                android:layout_width="90dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="fill"
-                android:hint="@string/Depart"
-                android:imeOptions="actionNext"
-                android:inputType="date" />
-
-            <EditText
-                android:id="@+id/comeback"
-                android:layout_width="90dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="fill"
-                android:hint="@string/Return"
-                android:imeOptions="actionNext"
-                android:inputType="date" />
-
-            <TableRow
-                android:id="@+id/passengers"
                 android:layout_gravity="fill">
 
-                <Button
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/from"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_columnSpan="3"
+                    android:layout_gravity="fill"
+                    android:hint="@string/From"
+                    android:imeOptions="actionNext"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_columnSpan="3"
+                android:layout_gravity="fill">
+
+                <EditText
+                    android:id="@+id/to"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_columnSpan="3"
+                    android:layout_gravity="fill"
+                    android:hint="@string/To"
+                    android:imeOptions="actionNext"
+                    android:inputType="text" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/depart"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/Depart"
+                    android:imeOptions="actionNext"
+                    android:inputType="date" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/comeback"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/Return"
+                    android:imeOptions="actionNext"
+                    android:inputType="date" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <TableRow
+                android:id="@+id/passengers"
+                android:layout_gravity="end">
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/lessTickets"
                     android:layout_width="40dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/Restar" />
+                    android:backgroundTint="@color/design_default_color_primary"
+                    android:tint="@color/design_default_color_primary"
+                    app:borderWidth="0dp"
+                    app:fabSize="mini"
+                    android:src="@drawable/icons8_menos_24"/>
 
                 <EditText
                     android:id="@+id/tickets"
@@ -99,18 +129,23 @@
                     android:text="0"
                     android:tooltipText="Passengers" />
 
-                <Button
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/moreTickets"
                     android:layout_width="40dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/Sumar" />
+                    app:fabSize="mini"
+                    android:backgroundTint="@color/design_default_color_primary"
+                    android:tint="@color/design_default_color_primary"
+                    app:borderWidth="0dp"
+                    android:src="@drawable/outline_add_white_48"/>
             </TableRow>
 
             <RadioGroup
                 android:id="@+id/numberOfStops"
                 android:layout_columnSpan="3"
                 android:layout_gravity="fill"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:checkedButton="@id/nonStop">
 
                 <RadioButton
                     android:id="@+id/nonStop"

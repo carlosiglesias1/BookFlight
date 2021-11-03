@@ -11,6 +11,9 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputEditText;
+
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -23,21 +26,30 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         tripList = new ArrayList<>();
         Button submit = (Button) findViewById(R.id.submit);
-        Button moreTickets = (Button) findViewById(R.id.moreTickets);
-        Button lessTickets = (Button) findViewById(R.id.lessTickets);
+        FloatingActionButton moreTickets = (FloatingActionButton) findViewById(R.id.moreTickets);
+        FloatingActionButton lessTickets = (FloatingActionButton) findViewById(R.id.lessTickets);
         Button historic = (Button) findViewById(R.id.history);
         submit.setOnClickListener(this::viewData);
         moreTickets.setOnClickListener(view -> {
             EditText people = (EditText) findViewById(R.id.tickets);
             int i = Integer.parseInt(people.getText().toString());
             i++;
-            people.setText(String.format(Locale.getDefault(), "%d", i));
+            if (i > 20) {
+                Toast toast = Toast.makeText(this, "Máximo número de pasajeros alcanzado", Toast.LENGTH_SHORT);
+                toast.show();
+            } else {
+                people.setText(String.format(Locale.getDefault(), "%d", i));
+            }
         });
         lessTickets.setOnClickListener(view -> {
             EditText people = (EditText) findViewById(R.id.tickets);
             int i = Integer.parseInt(people.getText().toString());
             i--;
-            people.setText(String.format(Locale.getDefault(), "%d", i));
+            if (i < 0) {
+                Toast toast = Toast.makeText(this, "No puedes poner menos", Toast.LENGTH_SHORT);
+                toast.show();
+            } else
+                people.setText(String.format(Locale.getDefault(), "%d", i));
         });
         historic.setOnClickListener(this::showHist);
     }
@@ -47,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
             TextView resultado = (TextView) findViewById(R.id.resultado);
             RadioGroup travelType = (RadioGroup) findViewById(R.id.travelType);
             RadioButton travelTypeSelect = (RadioButton) findViewById(travelType.getCheckedRadioButtonId());
-            EditText from = (EditText) findViewById(R.id.from);
+            TextInputEditText from = (TextInputEditText) findViewById(R.id.from);
             EditText to = (EditText) findViewById(R.id.to);
             EditText depart = (EditText) findViewById(R.id.depart);
             EditText comeBack = (EditText) findViewById(R.id.comeback);
