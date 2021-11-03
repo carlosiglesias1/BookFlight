@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.HorizontalScrollView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -79,12 +81,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void showHist(View view) {
         try {
-            String resource = "";
-            TextView resultado = (TextView) findViewById(R.id.resultado);
+            LinearLayout scroll = (LinearLayout) findViewById(R.id.scrollView);
+            scroll.removeAllViews();
             for (Trip trip : this.tripList) {
-                resource = resource.concat(trip.toString());
+                TextView tv = new TextView(this);
+                tv.setText(trip.toString());
+                scroll.addView(tv);
             }
-            resultado.setText(resource);
         } catch (Exception e) {
             Toast toast = Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT);
             toast.show();

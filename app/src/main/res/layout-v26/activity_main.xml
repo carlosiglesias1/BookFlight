@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,9 +21,10 @@
             <RadioGroup
                 android:id="@+id/travelType"
                 android:layout_columnSpan="2"
-                android:layout_gravity="fill"
-                android:orientation="horizontal"
-                android:checkedButton="@id/roundtrip">
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:checkedButton="@id/roundtrip"
+                android:orientation="horizontal">
 
                 <RadioButton
                     android:id="@+id/roundtrip"
@@ -80,32 +81,42 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+            <TableRow
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_columnSpan="2"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal">
 
-                <EditText
-                    android:id="@+id/depart"
-                    android:layout_width="90dp"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="@string/Depart"
-                    android:imeOptions="actionNext"
-                    android:inputType="date" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginRight="5dp">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                    <EditText
+                        android:id="@+id/depart"
+                        android:layout_width="105dp"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/Depart"
+                        android:imeOptions="actionNext"
+                        android:inputType="date" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <EditText
-                    android:id="@+id/comeback"
-                    android:layout_width="90dp"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="@string/Return"
-                    android:imeOptions="actionNext"
-                    android:inputType="date" />
+                    android:layout_marginLeft="5dp">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <EditText
+                        android:id="@+id/comeback"
+                        android:layout_width="105dp"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/Return"
+                        android:imeOptions="actionNext"
+                        android:inputType="date" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </TableRow>
+
             <TableRow
                 android:id="@+id/passengers"
                 android:layout_gravity="end">
@@ -115,10 +126,10 @@
                     android:layout_width="40dp"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/design_default_color_primary"
+                    android:src="@drawable/icons8_menos_24"
                     android:tint="@color/design_default_color_primary"
                     app:borderWidth="0dp"
-                    app:fabSize="mini"
-                    android:src="@drawable/icons8_menos_24"/>
+                    app:fabSize="mini" />
 
                 <EditText
                     android:id="@+id/tickets"
@@ -133,20 +144,20 @@
                     android:id="@+id/moreTickets"
                     android:layout_width="40dp"
                     android:layout_height="wrap_content"
-                    app:fabSize="mini"
                     android:backgroundTint="@color/design_default_color_primary"
+                    android:contentDescription="@string/mas_tickets"
+                    android:src="@drawable/outline_add_white_48"
                     android:tint="@color/design_default_color_primary"
                     app:borderWidth="0dp"
-                    android:src="@drawable/outline_add_white_48"
-                    android:contentDescription="@string/mas_tickets" />
+                    app:fabSize="mini" />
             </TableRow>
 
             <RadioGroup
                 android:id="@+id/numberOfStops"
                 android:layout_columnSpan="3"
                 android:layout_gravity="center_horizontal"
-                android:orientation="horizontal"
-                android:checkedButton="@id/nonStop">
+                android:checkedButton="@id/nonStop"
+                android:orientation="horizontal">
 
                 <RadioButton
                     android:id="@+id/nonStop"

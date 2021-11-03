@@ -7,13 +7,11 @@
     <string name="Sumar">+</string>
     <string name="Restar">-</string>
     <string name="Buscar">Search Flights</string>
-    <string name="roundtrip">Roundtrip</string>
-    <string name="one_way">One way</string>
+    <string name="roundtrip">RountTrip</string>
     <string name="history">History</string>
-    <string name="non_stop">Non stop</string>
-    <string name="one_stop">One stop</string>
-    <string name="_2_or_more">2 or more</string>
-    <string name="mas_tickets">Mas tickets</string>
-    <string name="zero">0</string>
-    <string name="less_tickets">Less tickets</string>
+    <string name="mas_tickets">+</string>
+    <string name="non_stop">Non Stop</string>
+    <string name="one_stop">One Stop</string>
+    <string name="_2_or_more">2 Or More</string>
+    <string name="one_way">One Way</string>
 </resources>
