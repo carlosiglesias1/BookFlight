@@ -29,13 +29,13 @@
                     android:id="@+id/roundtrip"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Roundtrip" />
+                    android:text="@string/roundtrip" />
 
                 <RadioButton
                     android:id="@+id/oneWay"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="One way" />
+                    android:text="@string/one_way" />
             </RadioGroup>
 
             <Button
@@ -43,7 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:text="History" />
+                android:text="@string/history" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -118,7 +118,8 @@
                     android:tint="@color/design_default_color_primary"
                     app:borderWidth="0dp"
                     app:fabSize="mini"
-                    android:src="@drawable/icons8_menos_24"/>
+                    android:src="@drawable/icons8_menos_24"
+                    android:contentDescription="@string/less_tickets" />
 
                 <EditText
                     android:id="@+id/tickets"
@@ -126,8 +127,7 @@
                     android:layout_height="wrap_content"
                     android:imeOptions="actionNext"
                     android:inputType="number"
-                    android:text="0"
-                    android:tooltipText="Passengers" />
+                    android:text="@string/zero"/>
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/moreTickets"
@@ -137,13 +137,14 @@
                     android:backgroundTint="@color/design_default_color_primary"
                     android:tint="@color/design_default_color_primary"
                     app:borderWidth="0dp"
-                    android:src="@drawable/outline_add_white_48"/>
+                    android:src="@drawable/outline_add_white_48"
+                    android:contentDescription="@string/mas_tickets" />
             </TableRow>
 
             <RadioGroup
                 android:id="@+id/numberOfStops"
                 android:layout_columnSpan="3"
-                android:layout_gravity="fill"
+                android:layout_gravity="center_horizontal"
                 android:orientation="horizontal"
                 android:checkedButton="@id/nonStop">
 
@@ -151,19 +152,19 @@
                     android:id="@+id/nonStop"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Non stop" />
+                    android:text="@string/non_stop" />
 
                 <RadioButton
                     android:id="@+id/oneStop"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="One stop" />
+                    android:text="@string/one_stop" />
 
                 <RadioButton
                     android:id="@+id/twoStop"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="2 or more" />
+                    android:text="@string/_2_or_more" />
             </RadioGroup>
 
             <Button
@@ -172,7 +173,7 @@
                 android:layout_height="wrap_content"
                 android:layout_columnSpan="3"
                 android:layout_gravity="center"
-                android:drawableRight="@drawable/icon_airplane"
+                android:drawableEnd="@drawable/icon_airplane"
                 android:text="@string/Buscar" />
         </GridLayout>
 
