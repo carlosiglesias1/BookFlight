@@ -22,8 +22,8 @@
                 android:id="@+id/travelType"
                 android:layout_columnSpan="2"
                 android:layout_gravity="center_horizontal"
-                android:gravity="center_horizontal"
                 android:checkedButton="@id/roundtrip"
+                android:gravity="center_horizontal"
                 android:orientation="horizontal">
 
                 <RadioButton
@@ -189,20 +189,21 @@
         </GridLayout>
 
         <ScrollView
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal">
 
-            <HorizontalScrollView
+            <LinearLayout
+                android:id="@+id/scrollView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal">
-
+                android:orientation="vertical">
                 <TextView
                     android:id="@+id/resultado"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
-            </HorizontalScrollView>
+            </LinearLayout>
         </ScrollView>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
