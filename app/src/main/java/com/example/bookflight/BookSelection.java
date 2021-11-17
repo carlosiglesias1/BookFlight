@@ -1,5 +1,6 @@
 package com.example.bookflight;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -57,7 +58,6 @@ public class BookSelection extends AppCompatActivity {
 
     public void viewData(View view) {
         try {
-            TextView resultado = (TextView) findViewById(R.id.resultado);
             RadioGroup travelType = (RadioGroup) findViewById(R.id.travelType);
             RadioButton travelTypeSelect = (RadioButton) findViewById(travelType.getCheckedRadioButtonId());
             TextInputEditText from = (TextInputEditText) findViewById(R.id.from);
@@ -67,10 +67,17 @@ public class BookSelection extends AppCompatActivity {
             EditText people = (EditText) findViewById(R.id.tickets);
             RadioGroup travelStops = (RadioGroup) findViewById(R.id.numberOfStops);
             RadioButton numberOfStops = findViewById(travelStops.getCheckedRadioButtonId());
-            tripList.add(new Trip(travelTypeSelect.getText().toString(), from.getText().toString(), to.getText().toString(), depart.getText().toString(), comeBack.getText().toString(), Integer.parseInt(people.getText().toString()), numberOfStops.getText().toString()));
-            resultado.setText(tripList.get(tripList.size() - 1).toString());
+            Intent intent = new Intent(this, ViewFlights.class);
+            intent.putExtra("travelType", from.getText().toString());
+            intent.putExtra("from", from.getText());
+            intent.putExtra("to", to.getText());
+            intent.putExtra("depart", depart.getText());
+            intent.putExtra("comeback", comeBack.getText());
+            intent.putExtra("pasengers", Integer.parseInt(people.getText().toString()));
+            intent.putExtra("stops", numberOfStops.getText().toString());
+            BookSelection.this.startActivity(intent);
         } catch (NullPointerException ex) {
-            Toast toast = Toast.makeText(this, "Faltan campos", Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(this, "Faltan campos: " + ex.getMessage(), Toast.LENGTH_SHORT);
             toast.show();
         } catch (Exception e) {
             Toast toast = Toast.makeText(this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT);
