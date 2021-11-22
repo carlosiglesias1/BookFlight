@@ -69,10 +69,10 @@ public class FlightSearch extends AppCompatActivity {
             RadioButton numberOfStops = findViewById(travelStops.getCheckedRadioButtonId());
             Intent intent = new Intent(this, ViewFlights.class);
             intent.putExtra("travelType", from.getText().toString());
-            intent.putExtra("from", from.getText());
-            intent.putExtra("to", to.getText());
-            intent.putExtra("depart", depart.getText());
-            intent.putExtra("comeback", comeBack.getText());
+            intent.putExtra("from", from.getText().toString());
+            intent.putExtra("to", to.getText().toString());
+            intent.putExtra("depart", depart.getText().toString());
+            intent.putExtra("comeback", comeBack.getText().toString());
             intent.putExtra("pasengers", Integer.parseInt(people.getText().toString()));
             intent.putExtra("stops", numberOfStops.getText().toString());
             FlightSearch.this.startActivity(intent);

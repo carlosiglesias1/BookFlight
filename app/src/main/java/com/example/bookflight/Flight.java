@@ -28,14 +28,13 @@ public class Flight {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public Flight(String from, String to, String depart, String comeback, String stops) {
-        random = new Random();
-        String[] tipos = {"RoundTrip", "One Way"};
+    public Flight(String tipo, String from, String to, String depart, String comeback, String stops) {
+        this.random = new Random();
         this.from = from;
         this.to = to;
         this.depart = getTravelDate(LocalDate.parse(depart)).toString();
         this.comeback = getTravelDate(LocalDate.parse(comeback)).toString();
-        this.type = tipos[random.nextInt(2)];
+        this.type = tipo;
         switch (stops) {
             case "Non Stop":
                 this.stops = 0;
@@ -47,6 +46,7 @@ public class Flight {
                 this.stops = random.nextInt(5) + 2;
                 break;
         }
+        this.tickets = this.random.nextInt(100) + 1;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -55,7 +55,7 @@ public class Flight {
         int departMonth;
         int departDay;
         do {
-            departMonth = random.nextInt(11) + 1;
+            departMonth = this.random.nextInt(11) + 1;
         } while (departMonth < date.getMonth().getValue());
         switch (departMonth) {
             case 1:
@@ -69,12 +69,13 @@ public class Flight {
                 break;
             case 2:
                 if ((departYear % 4 == 0) && ((departYear % 100 != 0) || (departYear % 400 == 0)))
-                    departDay = random.nextInt(28) + 1;
+                    departDay = this.random.nextInt(28) + 1;
                 else
-                    departDay = random.nextInt(27) + 1;
+                    departDay = this.random.nextInt(27) + 1;
                 break;
             default:
-                departDay = random.nextInt(29) + 1;
+                departDay = this.random.nextInt(29) + 1;
+                break;
         }
         return this.depart = departYear + "-" + departMonth + "-" + departDay;
     }
@@ -83,5 +84,69 @@ public class Flight {
     public String toString() {
         return "· " + this.type + "\n· From: " + this.from + "\n· To: " + this.to + "\n· Depart: " + this.depart + "\n· Return: "
                 + this.comeback + "\n· Tickets: " + this.tickets + "\n· Stops: " + this.stops + "\n\n";
+    }
+
+    public String getTo() {
+        return to;
+    }
+
+    public void setTo(String to) {
+        this.to = to;
+    }
+
+    public String getFrom() {
+        return from;
+    }
+
+    public void setFrom(String from) {
+        this.from = from;
+    }
+
+    public String getDepart() {
+        return depart;
+    }
+
+    public void setDepart(String depart) {
+        this.depart = depart;
+    }
+
+    public String getComeback() {
+        return comeback;
+    }
+
+    public void setComeback(String comeback) {
+        this.comeback = comeback;
+    }
+
+    public int getTickets() {
+        return tickets;
+    }
+
+    public void setTickets(int tickets) {
+        this.tickets = tickets;
+    }
+
+    public int getStops() {
+        return stops;
+    }
+
+    public void setStops(int stops) {
+        this.stops = stops;
+    }
+
+    public Random getRandom() {
+        return random;
+    }
+
+    public void setRandom(Random random) {
+        this.random = random;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }
