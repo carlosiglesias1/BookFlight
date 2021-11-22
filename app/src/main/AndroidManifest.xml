@@ -13,7 +13,7 @@
             android:name=".ViewFlights"
             android:exported="true" />
         <activity
-            android:name=".BookSelection"
+            android:name=".FlightSearch"
             android:exported="true" />
         <activity
             android:name=".MainActivity"

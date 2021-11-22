@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         pass.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_SEND) {
                 if (login.getText().toString().equalsIgnoreCase("perros") && pass.getText().toString().equalsIgnoreCase("sarnosos")) {
-                    Intent intent = new Intent(this, BookSelection.class);
+                    Intent intent = new Intent(this, FlightSearch.class);
                     MainActivity.this.startActivity(intent);
                     MainActivity.this.finish();
                     return true;
@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         });
         send.setOnClickListener(view -> {
             if (login.getText().toString().equalsIgnoreCase("perros") && pass.getText().toString().equalsIgnoreCase("sarnosos")) {
-                Intent intent = new Intent(this, BookSelection.class);
+                Intent intent = new Intent(this, FlightSearch.class);
                 MainActivity.this.startActivity(intent);
                 MainActivity.this.finish();
             }        });

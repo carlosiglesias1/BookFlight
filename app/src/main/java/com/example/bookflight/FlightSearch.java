@@ -19,14 +19,14 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class BookSelection extends AppCompatActivity {
-    private ArrayList<Trip> tripList;
+public class FlightSearch extends AppCompatActivity {
+    private ArrayList<Flight> flightList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        tripList = new ArrayList<>();
+        flightList = new ArrayList<>();
         Button submit = (Button) findViewById(R.id.submit);
         FloatingActionButton moreTickets = (FloatingActionButton) findViewById(R.id.moreTickets);
         FloatingActionButton lessTickets = (FloatingActionButton) findViewById(R.id.lessTickets);
@@ -75,7 +75,7 @@ public class BookSelection extends AppCompatActivity {
             intent.putExtra("comeback", comeBack.getText());
             intent.putExtra("pasengers", Integer.parseInt(people.getText().toString()));
             intent.putExtra("stops", numberOfStops.getText().toString());
-            BookSelection.this.startActivity(intent);
+            FlightSearch.this.startActivity(intent);
         } catch (NullPointerException ex) {
             Toast toast = Toast.makeText(this, "Faltan campos: " + ex.getMessage(), Toast.LENGTH_SHORT);
             toast.show();
@@ -89,9 +89,9 @@ public class BookSelection extends AppCompatActivity {
         try {
             LinearLayout scroll = (LinearLayout) findViewById(R.id.scrollView);
             scroll.removeAllViews();
-            for (Trip trip : this.tripList) {
+            for (Flight flight : this.flightList) {
                 TextView tv = new TextView(this);
-                tv.setText(trip.toString());
+                tv.setText(flight.toString());
                 scroll.addView(tv);
             }
         } catch (Exception e) {
