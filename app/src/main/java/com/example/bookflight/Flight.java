@@ -33,7 +33,9 @@ public class Flight {
         this.from = from;
         this.to = to;
         this.depart = getTravelDate(LocalDate.parse(depart)).toString();
-        this.comeback = getTravelDate(LocalDate.parse(comeback)).toString();
+        do {
+            this.comeback = getTravelDate(LocalDate.parse(comeback)).toString();
+        } while (this.depart.equalsIgnoreCase(this.comeback));
         this.type = tipo;
         switch (stops) {
             case "Non Stop":
@@ -51,6 +53,7 @@ public class Flight {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public String getTravelDate(LocalDate date) {
+        this.random = new Random();
         int departYear = date.getYear();
         int departMonth;
         int departDay;
@@ -77,7 +80,7 @@ public class Flight {
                 departDay = this.random.nextInt(29) + 1;
                 break;
         }
-        return this.depart = departYear + "-" + departMonth + "-" + departDay;
+        return departYear + "-" + departMonth + "-" + departDay;
     }
 
     @Override

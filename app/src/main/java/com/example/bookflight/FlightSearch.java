@@ -5,10 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -68,12 +66,12 @@ public class FlightSearch extends AppCompatActivity {
             RadioGroup travelStops = (RadioGroup) findViewById(R.id.numberOfStops);
             RadioButton numberOfStops = findViewById(travelStops.getCheckedRadioButtonId());
             Intent intent = new Intent(this, ViewFlights.class);
-            intent.putExtra("travelType", from.getText().toString());
+            intent.putExtra("travelType", travelTypeSelect.getText().toString());
             intent.putExtra("from", from.getText().toString());
             intent.putExtra("to", to.getText().toString());
             intent.putExtra("depart", depart.getText().toString());
             intent.putExtra("comeback", comeBack.getText().toString());
-            intent.putExtra("pasengers", Integer.parseInt(people.getText().toString()));
+            intent.putExtra("passengers", Integer.parseInt(people.getText().toString()));
             intent.putExtra("stops", numberOfStops.getText().toString());
             FlightSearch.this.startActivity(intent);
         } catch (NullPointerException ex) {
@@ -87,13 +85,7 @@ public class FlightSearch extends AppCompatActivity {
 
     public void showHist(View view) {
         try {
-            LinearLayout scroll = (LinearLayout) findViewById(R.id.scrollView);
-            scroll.removeAllViews();
-            for (Flight flight : this.flightList) {
-                TextView tv = new TextView(this);
-                tv.setText(flight.toString());
-                scroll.addView(tv);
-            }
+            this.startActivity(new Intent(this, ViewFlights.class));
         } catch (Exception e) {
             Toast toast = Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT);
             toast.show();

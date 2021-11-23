@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "145089657942",
+    "project_id": "proyectopm-iglesiasgomezcarlos",
+    "storage_bucket": "proyectopm-iglesiasgomezcarlos.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:145089657942:android:861055fd38112a00208ff7",
+        "android_client_info": {
+          "package_name": "com.example.bookflight"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "145089657942-n59g2kmcdt6afi2nlms0cf8jn90r2lv6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBpKwFFQ4LmlRj8wgMA8_BAv_l32f82iMM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "145089657942-n59g2kmcdt6afi2nlms0cf8jn90r2lv6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
