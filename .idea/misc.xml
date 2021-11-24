@@ -3,29 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/carlo/AndroidStudioProjects/BookFlight/app/src/main/res/layout-v26/activity_main.xml" value="0.13020833333333334" />
-        <entry key="..\:/Users/carlo/AndroidStudioProjects/BookFlight/app/src/main/res/layout/activity_login.xml" value="0.10625" />
-        <entry key="..\:/Users/carlo/AndroidStudioProjects/BookFlight/app/src/main/res/layout/activity_main.xml" value="0.1203125" />
-        <entry key="..\:/Users/carlo/AndroidStudioProjects/BookFlight/app/src/main/res/layout/activity_view_flights.xml" value="0.13020833333333334" />
-        <entry key="..\:/Users/carlo/AndroidStudioProjects/BookFlight/app/src/main/res/layout/reservation_dialog.xml" value="0.13020833333333334" />
         <entry key="..\:/Users/carlos.iglesiasgomez/AndroidStudioProjects/BookFlight/app/src/main/res/layout-v26/activity_main.xml" value="0.33" />
+        <entry key="..\:/Users/carlos.iglesiasgomez/AndroidStudioProjects/BookFlight/app/src/main/res/layout-v26/popup_menu.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/carlos.iglesiasgomez/AndroidStudioProjects/BookFlight/app/src/main/res/layout/activity_login.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/carlos.iglesiasgomez/AndroidStudioProjects/BookFlight/app/src/main/res/layout/activity_main.xml" value="0.36685773840541946" />
         <entry key="..\:/Users/carlos.iglesiasgomez/AndroidStudioProjects/BookFlight/app/src/main/res/layout/activity_view_flights.xml" value="0.18697916666666667" />
         <entry key="..\:/Users/carlos.iglesiasgomez/AndroidStudioProjects/BookFlight/app/src/main/res/layout/reservation_dialog.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/carlos.iglesiasgomez/AndroidStudioProjects/BookFlight/app/src/main/res/menu/popup_menu.xml" value="0.18697916666666667" />
         <entry key="..\:/Users/carlos.iglesiasgomez/AndroidStudioProjects/BookFlight/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.3828125" />
       </map>
     </option>
-  </component>
-  <component name="JavadocGenerationManager">
-    <option name="OUTPUT_DIRECTORY" value="$USER_HOME$/Desktop/DAM2/PDM/Javadoc" />
-    <option name="OPTION_SCOPE" value="public" />
-    <option name="OPTION_INDEX" value="false" />
-    <option name="OPTION_SEPARATE_INDEX" value="false" />
-    <option name="OPTION_DOCUMENT_TAG_USE" value="true" />
-    <option name="OPTION_DOCUMENT_TAG_AUTHOR" value="true" />
-    <option name="OPTION_DOCUMENT_TAG_VERSION" value="true" />
-    <option name="OPTION_INCLUDE_LIBS" value="true" />
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />

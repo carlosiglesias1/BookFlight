@@ -1,15 +1,12 @@
 package com.example.bookflight;
 
-import android.content.Context;
-import android.content.DialogInterface;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
@@ -67,28 +64,30 @@ public class ViewFlights extends AppCompatActivity {
             lv.setAdapter(adapter);
             lv.setOnItemClickListener((adapterView, view1, i, l) -> {
                 Flight flight = this.flights.get(i);
-                LayoutInflater li = (LayoutInflater) ViewFlights.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setIcon(R.mipmap.ic_launcher);
                 builder.setTitle("¿Reservar vuelo?\nPlazas disponibles: " + flight.getTickets());
-                /*View inflado = li.inflate(R.layout.reservation_dialog, null);
-                builder.setView(inflado);
-                findViewById(R.id.moreTickets).setOnClickListener(view2 -> {
-                    int value = Integer.parseInt(((TextView) findViewById(R.id.tickets)).getText().toString());
-                    value++;
-                    ((TextView) findViewById(R.id.tickets)).setText(Integer.toString(value));
-                });
-                findViewById(R.id.lessTickets).setOnClickListener(view2 -> {
-                    int value = Integer.parseInt(((TextView) findViewById(R.id.tickets)).getText().toString());
-                    value--;
-                    ((TextView) findViewById(R.id.tickets)).setText(Integer.toString(value));
-                });*/
                 builder.setPositiveButton("RESERVAR", (dialogInterface, j) -> {
                     db.collection("vuelos").document("vuelo: " + lv.getSelectedItem()).get().addOnSuccessListener(resultado -> {
                         try {
                             flight.setTickets(flight.getTickets() - ViewFlights.this.getIntent().getIntExtra("passengers", 0));
                             setData("vuelos", i, flight);
-                            setData("history", i, flight);
+                            try {
+                                this.db.collection("history").get().addOnSuccessListener(queryDocumentSnapshots -> {
+                                    List<DocumentSnapshot> documentSnapshots = queryDocumentSnapshots.getDocuments();
+                                    if (documentSnapshots.size() == 0)
+                                        setData("history", 0, flight);
+                                    else {
+                                        DocumentSnapshot lastDocument = documentSnapshots.get(documentSnapshots.size() - 1);
+                                        int numberOfHist = Integer.parseInt(lastDocument.getId().substring(7));
+                                        setData("history", numberOfHist + 1, flight);
+                                    }
+                                });
+
+                            } catch (NullPointerException ex) {
+                                System.out.println("null");
+                                setData("history", 0, flight);
+                            }
                             adapter.notifyDataSetChanged();
                         } catch (NullPointerException e) {
                             Toast.makeText(this, "No los pilla", Toast.LENGTH_SHORT).show();
@@ -137,32 +136,121 @@ public class ViewFlights extends AppCompatActivity {
      *
      * @param collection la colección de fireStore en la que vamos a insertar los datos
      * @param index      el índice de inserción
-     * @param flight     el "vuelo", en realidad será un objeto que luego se procesará
+     * @param obj        el "vuelo", en realidad será un objeto que luego se procesará
      */
-    public void setData(String collection, int index, Flight flight) {
+    public void setData(String collection, int index, Object obj) {
         Map<String, String> flightMap = new HashMap<>();
-        flightMap.put("type", flight.getType());
-        flightMap.put("from", flight.getFrom());
-        flightMap.put("to", flight.getTo());
-        flightMap.put("depart", flight.getDepart());
-        flightMap.put("comeback", flight.getComeback());
-        flightMap.put("stops", Integer.toString(flight.getStops()));
-        flightMap.put("billetes", Integer.toString(ViewFlights.this.getIntent().getIntExtra("passengers", 0)));
+        if (obj instanceof Flight) {
+            Flight flight = (Flight) obj;
+            flightMap.put("type", flight.getType());
+            flightMap.put("from", flight.getFrom());
+            flightMap.put("to", flight.getTo());
+            flightMap.put("depart", flight.getDepart());
+            flightMap.put("comeback", flight.getComeback());
+            flightMap.put("stops", Integer.toString(flight.getStops()));
+            flightMap.put("billetes", Integer.toString(ViewFlights.this.getIntent().getIntExtra("passengers", 0)));
+        } else if (obj instanceof Reservation) {
+            Reservation flight = (Reservation) obj;
+            flightMap.put("type", flight.getType());
+            flightMap.put("from", flight.getFrom());
+            flightMap.put("to", flight.getTo());
+            flightMap.put("depart", flight.getDepart());
+            flightMap.put("comeback", flight.getComeback());
+            flightMap.put("stops", Integer.toString(flight.getStops()));
+            flightMap.put("billetes", Integer.toString(flight.getTickets()));
+        }
         db.collection(collection).document("vuelo: " + index).set(flightMap);
     }
 
     /**
      * Muestra el historial de busquedas de nuestro usuario
      */
+    @SuppressLint("NonConstantResourceId")
     public void showHist() {
         List<Reservation> reservations = new ArrayList<>();
         ListView lv = findViewById(R.id.flightList);
         ArrayAdapter<Reservation> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, reservations);
         lv.setAdapter(adapter);
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(ViewFlights.this);
+        lv.setOnItemClickListener((parent, view, position, id) -> {
+            PopupMenu popupMenu = new PopupMenu(ViewFlights.this, view);
+            popupMenu.inflate(R.menu.popup_menu);
+            popupMenu.show();
+            popupMenu.setOnMenuItemClickListener(menuItem -> {
+                switch (menuItem.getItemId()) {
+                    case R.id.moreItems:
+                        reservations.get(position).setTickets((reservations.get(position).getTickets() + 1));
+                        setData("history", position, reservations.get(position));
+                        adapter.notifyDataSetChanged();
+                        return true;
+                    case R.id.lessItems:
+                        reservations.get(position).setTickets((reservations.get(position).getTickets() - 1));
+                        setData("history", position, reservations.get(position));
+                        adapter.notifyDataSetChanged();
+                        return true;
+                    case R.id.eliminateFlight:
+                        Reservation eliminate = reservations.get(position);
+                        db.collection("history").get().addOnSuccessListener(queryDocumentSnapshots -> {
+                            db.collection("history").document("vuelo: "+position).delete();
+                            List<DocumentSnapshot> documentSnapshots = queryDocumentSnapshots.getDocuments();
+                            for (DocumentSnapshot document : documentSnapshots) {
+                                int posDoc = Integer.parseInt(document.getId().substring(7));
+                                if (posDoc > position) {
+                                    Reservation update = new Reservation(document.getString("type"), document.getString("from"), document.getString("to"), document.getString("depart"), document.getString("comeback"), Integer.parseInt(document.getString("billetes")), Integer.parseInt(document.getString("stops")));
+                                    setData("history", posDoc - 1, update);
+                                    db.collection("history").document(document.getId()).delete();
+                                }
+                            }
+                        });
+                        reservations.remove(position);
+                        adapter.notifyDataSetChanged();
+                        return true;
+                    case R.id.useData:
+                        Reservation selected = reservations.get(position);
+                        Intent intent = new Intent(ViewFlights.this, FlightSearch.class);
+                        intent.putExtra("travelType", selected.getType());
+                        intent.putExtra("from", selected.getFrom());
+                        intent.putExtra("to", selected.getTo());
+                        intent.putExtra("depart", selected.getDepart());
+                        intent.putExtra("comeback", selected.getComeback());
+                        intent.putExtra("passengers", selected.getTickets());
+                        intent.putExtra("stops", Integer.toString(selected.getStops()));
+                        ViewFlights.this.startActivity(intent);
+                        ViewFlights.this.finish();
+                        return true;
+                    default:
+                        return false;
+                }
+            });
+        });
+        gerReservations(adapter, reservations);
+    }
+
+    /*
+     * En este método proceso el historial de reservas de la base de datos de FireBase, para poder imprimirselas al usuario
+     * @return Estaba pensado para devolver la lista de las reservas de la base de datos,
+     *   lamentablemente, debe de haber un bug con firebase y no me devolvía bien la lista;
+     *   con lo que es una función vacía
+     * */
+    private void gerReservations(ArrayAdapter<Reservation> adapter, List<Reservation> reservations) {
+        this.db.collection("history")
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    List<DocumentSnapshot> doc = queryDocumentSnapshots.getDocuments();
+                    for (int i = 0; i < doc.size(); i++) {
+                        String type = doc.get(i).getString("type");
+                        String from = doc.get(i).getString("from");
+                        String to = doc.get(i).getString("to");
+                        String depart = doc.get(i).getString("depart");
+                        String comeback = doc.get(i).getString("comeback");
+                        int tickets = Integer.parseInt(doc.get(i).getString("billetes"));
+                        int stops = Integer.parseInt(doc.get(i).getString("stops"));
+                        reservations.add(new Reservation(type, from, to, depart, comeback, tickets, stops));
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+    }
+}
+/*AlertDialog.Builder builder = new AlertDialog.Builder(ViewFlights.this);
                 builder.setIcon(R.mipmap.ic_launcher);
                 builder.setTitle("¿Quieres modificar este viaje o reutilizar la busqueda?");
                 builder.setPositiveButton("SUMAR PASAJEROS", new DialogInterface.OnClickListener() {
@@ -195,34 +283,4 @@ public class ViewFlights extends AppCompatActivity {
                     }
                 });
                 AlertDialog dialog = builder.create();
-                dialog.show();
-            }
-        });
-        gerReservations(adapter, reservations);
-    }
-
-    /*
-     * En este método proceso el historial de reservas de la base de datos de FireBase, para poder imprimirselas al usuario
-     * @return Estaba pensado para devolver la lista de las reservas de la base de datos,
-     *   lamentablemente, debe de haber un bug con firebase y no me devolvía bien la lista;
-     *   con lo que es una función vacía
-     * */
-    private void gerReservations(ArrayAdapter<Reservation> adapter, List<Reservation> reservations) {
-        this.db.collection("history")
-                .get()
-                .addOnSuccessListener(queryDocumentSnapshots -> {
-                    List<DocumentSnapshot> doc = queryDocumentSnapshots.getDocuments();
-                    for (int i = 0; i < doc.size(); i++) {
-                        String type = doc.get(i).getString("type");
-                        String from = doc.get(i).getString("from");
-                        String to = doc.get(i).getString("to");
-                        String depart = doc.get(i).getString("depart");
-                        String comeback = doc.get(i).getString("comeback");
-                        int tickets = Integer.parseInt(doc.get(i).getString("billetes"));
-                        int stops = Integer.parseInt(doc.get(i).getString("stops"));
-                        reservations.add(new Reservation(type, from, to, depart, comeback, tickets, stops));
-                        adapter.notifyDataSetChanged();
-                    }
-                });
-    }
-}
+                dialog.show();*/

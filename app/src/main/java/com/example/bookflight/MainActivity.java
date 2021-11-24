@@ -8,10 +8,8 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 
 /**
  * The type Main activity.
@@ -22,9 +20,9 @@ public class MainActivity extends AppCompatActivity {
      */
     FirebaseFirestore db;
 
-    
-    /** 
-     * @param savedInstanceState
+
+    /**
+     * @param savedInstanceState crea la actividad con la instacia que esta guardada
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,12 +50,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         this.db = FirebaseFirestore.getInstance();
-        this.db.collection("vuelos").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots.getDocuments()) {
-                    db.collection("vuelos").document(documentSnapshot.getId()).delete();
-                }
+        this.db.collection("vuelos").get().addOnSuccessListener(queryDocumentSnapshots -> {
+            for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots.getDocuments()) {
+                db.collection("vuelos").document(documentSnapshot.getId()).delete();
             }
         });
     }
