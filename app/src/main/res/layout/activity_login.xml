@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".Login">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -11,55 +11,40 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
-            android:text="@string/app_name"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-            android:textSize="40dp"
-            android:textStyle="bold" />
-
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="5dp">
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp">
 
-            <EditText
-                android:id="@+id/login"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:hint="@string/login"
-                android:imeOptions="actionNext"
-                android:inputType="text"
-                android:maxLines="1" />
+                android:hint="@string/username"
+                android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
-            android:layout_marginEnd="20dp">
+            android:layout_marginEnd="10dp">
 
-            <EditText
-                android:id="@+id/pass"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/passWord"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
                 android:hint="@string/password"
-                android:imeOptions="actionSend"
-                android:inputType="textPassword"/>
+                android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:id="@+id/send"
+            android:id="@+id/logIn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/send" />
-    </LinearLayout>
+            android:text="@string/log_in" />
 
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

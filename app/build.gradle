@@ -39,3 +39,12 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 }
+configurations {
+    javadocDeps
+}
+
+dependencies {
+
+    javadocDeps 'com.android.support:support-annotations:22.2.0'
+
+}

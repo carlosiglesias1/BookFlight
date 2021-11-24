@@ -8,15 +8,31 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity {
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
+/**
+ * The type Main activity.
+ */
+public class MainActivity extends AppCompatActivity {
+    /**
+     * The Db.
+     */
+    FirebaseFirestore db;
+
+    
+    /** 
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        Button send = (Button) this.findViewById(R.id.send);
-        EditText login = (EditText) findViewById(R.id.login);
-        EditText pass = (EditText) findViewById(R.id.pass);
+        Button send = (Button) this.findViewById(R.id.logIn);
+        EditText login = (EditText) findViewById(R.id.username);
+        EditText pass = (EditText) findViewById(R.id.passWord);
         pass.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_SEND) {
                 if (login.getText().toString().equalsIgnoreCase("perros") && pass.getText().toString().equalsIgnoreCase("sarnosos")) {
@@ -33,6 +49,16 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(this, FlightSearch.class);
                 MainActivity.this.startActivity(intent);
                 MainActivity.this.finish();
-            }        });
+            }
+        });
+        this.db = FirebaseFirestore.getInstance();
+        this.db.collection("vuelos").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots.getDocuments()) {
+                    db.collection("vuelos").document(documentSnapshot.getId()).delete();
+                }
+            }
+        });
     }
 }

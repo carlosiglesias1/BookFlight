@@ -132,8 +132,7 @@
                     android:src="@drawable/icons8_menos_24"
                     android:tint="@color/design_default_color_primary"
                     app:borderWidth="0dp"
-                    app:fabSize="mini"
-                    android:contentDescription="@string/description_less" />
+                    app:fabSize="mini" />
 
                 <EditText
                     android:id="@+id/tickets"

@@ -14,9 +14,8 @@
     <string name="one_stop">One Stop</string>
     <string name="_2_or_more">2 Or More</string>
     <string name="one_way">One Way</string>
-    <string name="login">Login</string>
-    <string name="password">Password</string>
-    <string name="send">Enviar</string>
+    <string name="username">Log In</string>
+    <string name="password">Contraseña</string>
+    <string name="log_in">Acceder</string>
     <string name="one">1</string>
-    <string name="description_less">button to quit passengers</string>
 </resources>
